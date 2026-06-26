@@ -873,8 +873,8 @@
       </div>
     </div>
 
-    <!-- Product 5 — wide card -->
-    <div class="product-card wide reveal" style="transition-delay:.5s">
+    <!-- Product 5 -->
+    <div class="product-card reveal" style="transition-delay:.5s">
       <div class="product-card-glow"></div>
       <div class="product-img-wrap">
         <img src="heritam/5.jpeg" alt="Angry Birds Phone Charms Collection">
@@ -980,15 +980,32 @@
   </div>
 </footer>
 
+<!-- ============================================================
+     أكواد الخصم — مصدرها codes.html
+     لإضافة كود جديد: أضف سطر <code data-discount="النسبة">الكود</code>
+     لحذف كود: احذف السطر بالكامل
+     ============================================================ -->
+<script type="text/x-discount-codes" id="discountCodes">
+<code data-discount="70">popeyegym</code>
+<code data-discount="70">ebrahimelbltagy</code>
+<code data-discount="70">ahmedibrahim</code>
+<code data-discount="70">ahmedshawky</code>
+<code data-discount="70">nadamansy</code>
+<code data-discount="70">loayhassan</code>
+</script>
+
 <script>
 // ── CART
-let COUPONS = {
-  "popeyegym": 70,
-  "ebrahimelbltagy": 70,
-  "ahmedibrahim": 70,
-  "ahmedshawky": 70,
-  "nadamansy": 70
-};
+let COUPONS = {};
+(function() {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = document.getElementById('discountCodes').textContent;
+  tmp.querySelectorAll('code[data-discount]').forEach(function(el) {
+    const code = el.textContent.trim().toLowerCase();
+    const pct  = parseInt(el.getAttribute('data-discount'), 10);
+    if (code && !isNaN(pct)) COUPONS[code] = pct;
+  });
+})();
 let cart = [];
 let appliedDiscount = 0;
 
