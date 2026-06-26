@@ -381,6 +381,39 @@
     letter-spacing: .15em; margin-bottom: 2px; font-family: 'Cinzel', serif;
   }
 
+  /* Copy Link button */
+  .btn-copy-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; flex-shrink: 0;
+    border: 1px solid rgba(201,160,85,.25);
+    background: transparent; color: var(--text-muted);
+    border-radius: 2px; cursor: pointer;
+    transition: all .3s; position: relative;
+  }
+  .btn-copy-link:hover {
+    border-color: var(--gold-primary); color: var(--gold-primary);
+    background: rgba(201,160,85,.06);
+    box-shadow: 0 0 14px rgba(201,160,85,.15);
+  }
+  .btn-copy-link svg { width: 15px; height: 15px; }
+  .btn-copy-link.copied {
+    border-color: #4caf82; color: #4caf82;
+    background: rgba(76,175,130,.08);
+  }
+
+  /* Toast */
+  #copy-toast {
+    position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: rgba(15,11,7,.95); border: 1px solid rgba(201,160,85,.3);
+    color: var(--gold-primary); font-family: 'Cinzel', serif;
+    font-size: .55rem; letter-spacing: .2em; text-transform: uppercase;
+    padding: 12px 28px; border-radius: 2px; z-index: 9000;
+    opacity: 0; transition: opacity .3s, transform .3s;
+    backdrop-filter: blur(12px); pointer-events: none;
+    box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  }
+  #copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
   /* WhatsApp button */
   .btn-whatsapp {
     display: inline-flex; align-items: center; gap: 9px;
@@ -716,6 +749,7 @@
 
 <!-- CUSTOM CURSOR -->
 <div id="cursor"></div>
+<div id="copy-toast">✓ تم نسخ الرابط</div>
 <div id="cursor-ring"></div>
 
 <!-- WHATSAPP FLOATING BUTTON -->
@@ -800,7 +834,7 @@
   <div class="products-grid">
 
     <!-- Product 1 -->
-    <div class="product-card reveal" style="transition-delay:.1s">
+    <div id="product-1" class="product-card reveal" style="transition-delay:.1s">
       <div class="product-card-glow"></div>
       <div class="product-img-wrap">
         <img src="heritam/1.jpeg" alt="Elephant Silver Keychain">
@@ -813,13 +847,18 @@
         <p class="product-desc">Elegantly crafted silver-finish elephant charm — a symbol of strength, wisdom and good fortune. A timeless gift for any occasion.</p>
         <div class="product-footer">
           <div class="product-price"><small>السعر</small>50 جنيه</div>
-          <button class="btn-cart" onclick="addToCart('Elephant Silver Keychain', 50)">+ سلة</button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Elephant Silver Keychain', 50)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-1', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Product 2 -->
-    <div class="product-card reveal" style="transition-delay:.2s">
+    <div id="product-2" class="product-card reveal" style="transition-delay:.2s">
       <div class="product-card-glow"></div>
       <div class="product-img-wrap">
         <img src="heritam/2.jpeg" alt="Pink Doll Keychain">
@@ -832,13 +871,18 @@
         <p class="product-desc">A charming pink girl figure keychain in soft rubber — playful, vibrant and the perfect gift for children and collectors alike.</p>
         <div class="product-footer">
           <div class="product-price"><small>السعر</small>50 جنيه</div>
-          <button class="btn-cart" onclick="addToCart('Pink Doll Keychain', 50)">+ سلة</button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Pink Doll Keychain', 50)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-2', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Product 3 -->
-    <div class="product-card reveal" style="transition-delay:.3s">
+    <div id="product-3" class="product-card reveal" style="transition-delay:.3s">
       <div class="product-card-glow"></div>
       <div class="product-img-wrap">
         <img src="heritam/3.jpeg" alt="Abacus Keychain">
@@ -850,13 +894,18 @@
         <p class="product-desc">A miniature replica of a traditional abacus in rich brown tones — a witty and unique keychain for the curious and the creative.</p>
         <div class="product-footer">
           <div class="product-price"><small>السعر</small>50 جنيه</div>
-          <button class="btn-cart" onclick="addToCart('Abacus Keychain', 50)">+ سلة</button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Abacus Keychain', 50)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-3', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Product 4 -->
-    <div class="product-card reveal" style="transition-delay:.4s">
+    <div id="product-4" class="product-card reveal" style="transition-delay:.4s">
       <div class="product-card-glow"></div>
       <div class="product-img-wrap">
         <img src="heritam/4.jpeg" alt="Carabiner Metal Keychain">
@@ -868,13 +917,18 @@
         <p class="product-desc">A robust, high-polish carabiner keychain in gunmetal chrome — combining sleek industrial design with everyday practicality.</p>
         <div class="product-footer">
           <div class="product-price"><small>السعر</small>50 جنيه</div>
-          <button class="btn-cart" onclick="addToCart('Premium Carabiner Keychain', 50)">+ سلة</button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Premium Carabiner Keychain', 50)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-4', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Product 5 -->
-    <div class="product-card reveal" style="transition-delay:.5s">
+    <div id="product-5" class="product-card reveal" style="transition-delay:.5s">
       <div class="product-card-glow"></div>
       <div class="product-img-wrap">
         <img src="heritam/5.jpeg" alt="Angry Birds Phone Charms Collection">
@@ -887,7 +941,102 @@
         <p class="product-desc">A vibrant collection of Angry Birds themed phone straps and charms — available in multiple character designs including Red, Blue Bird, Black Bird and more.</p>
         <div class="product-footer">
           <div class="product-price"><small>السعر</small>50 جنيه</div>
-          <button class="btn-cart" onclick="addToCart('Angry Birds Phone Charms', 50)">+ سلة</button>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Angry Birds Phone Charms', 50)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-5', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 6 -->
+    <div id="product-6" class="product-card reveal" style="transition-delay:.6s">
+      <div class="product-card-glow"></div>
+      <div class="product-img-wrap">
+        <img src="heritam/6.jpg" alt="Vintage Globe Keychain">
+        <span class="product-badge">New</span>
+        <div class="product-img-overlay"><div class="overlay-zoom">🔍</div></div>
+      </div>
+      <div class="product-info">
+        <span class="product-cat">Men's Wallets</span>
+        <h3 class="product-name">Men's Vintage Leather Wallet</h3>
+        <div class="product-footer">
+          <div class="product-price"><small>السعر</small>110 جنيه</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Men\'s Vintage Leather Wallet', 110)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-6', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 7 -->
+    <div id="product-7" class="product-card reveal" style="transition-delay:.7s">
+      <div class="product-card-glow"></div>
+      <div class="product-img-wrap">
+        <img src="heritam/7.jpg" alt="Crystal Teardrop Charm">
+        <div class="product-img-overlay"><div class="overlay-zoom">🔍</div></div>
+      </div>
+      <div class="product-info">
+        <span class="product-cat">Men's Wallets</span>
+        <h3 class="product-name">Men's Premium Leather Wallet</h3>
+        <div class="product-footer">
+          <div class="product-price"><small>السعر</small>155 جنيه</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Men\'s Premium Leather Wallet', 155)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-7', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 8 -->
+    <div id="product-8" class="product-card reveal" style="transition-delay:.8s">
+      <div class="product-card-glow"></div>
+      <div class="product-img-wrap">
+        <img src="heritam/8.jpg" alt="Royal Crown Keychain">
+        <span class="product-badge">Premium</span>
+        <div class="product-img-overlay"><div class="overlay-zoom">🔍</div></div>
+      </div>
+      <div class="product-info">
+        <span class="product-cat">Women's Wallets</span>
+        <h3 class="product-name">Women's Fashion Wallet</h3>
+        <div class="product-footer">
+          <div class="product-price"><small>السعر</small>100 جنيه</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Women\'s Fashion Wallet', 100)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-8', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 9 -->
+    <div id="product-9" class="product-card reveal" style="transition-delay:.9s">
+      <div class="product-card-glow"></div>
+      <div class="product-img-wrap">
+        <img src="heritam/9.jpg" alt="Retro Camera Keychain">
+        <div class="product-img-overlay"><div class="overlay-zoom">🔍</div></div>
+      </div>
+      <div class="product-info">
+        <span class="product-cat">Men's Wallets</span>
+        <h3 class="product-name">Men's Classic Leather Wallet</h3>
+        <div class="product-footer">
+          <div class="product-price"><small>السعر</small>110 جنيه</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn-cart" onclick="addToCart('Men\'s Classic Leather Wallet', 110)">+ سلة</button>
+            <button class="btn-copy-link" onclick="copyProductLink('product-9', this)" title="نسخ الرابط">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -1121,6 +1270,22 @@ function orderViaWhatsApp() {
   if (appliedDiscount > 0) msg += `\nكود الخصم: خصم ${appliedDiscount}%\nالخصم: -${discountAmt} جنيه`;
   msg += `\n\nالإجمالي: ${grand} جنيه`;
   window.open('https://wa.me/201551814955?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ── COPY PRODUCT LINK
+let toastTimer;
+function copyProductLink(id, btn) {
+  const url = window.location.origin + window.location.pathname + '#' + id;
+  navigator.clipboard.writeText(url).then(() => {
+    btn.classList.add('copied');
+    const toast = document.getElementById('copy-toast');
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+      btn.classList.remove('copied');
+    }, 2000);
+  });
 }
 
 // ── LOADER
