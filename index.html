@@ -696,12 +696,116 @@
   }
   .total-final { border-top: 1px solid rgba(201,160,85,.2); margin-top: 8px; padding-top: 12px; font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-light); font-weight: 500; }
   .btn-whatsapp-order {
-    width: 100%; background: #25D366; border: none; color: white;
-    padding: 14px; border-radius: 8px; cursor: pointer; font-size: .9rem;
+    width: 100%; background: linear-gradient(135deg,#25D366,#1aab52); border: none; color: white;
+    padding: 15px; border-radius: 10px; cursor: pointer; font-size: .85rem;
     display: flex; align-items: center; justify-content: center; gap: 10px;
-    font-family: 'Cinzel', serif; letter-spacing: .06em; transition: background .3s;
+    font-family: 'Cinzel', serif; letter-spacing: .08em; transition: all .3s;
+    box-shadow: 0 4px 20px rgba(37,211,102,.3);
   }
-  .btn-whatsapp-order:hover { background: #1ebe5a; }
+  .btn-whatsapp-order:hover { background: linear-gradient(135deg,#1ebe5a,#169944); box-shadow: 0 6px 28px rgba(37,211,102,.5); transform: translateY(-1px); }
+
+  /* ── CART BODY SCROLL ── */
+  .cart-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; min-height: 0; }
+  .cart-body::-webkit-scrollbar { width: 4px; }
+  .cart-body::-webkit-scrollbar-track { background: transparent; }
+  .cart-body::-webkit-scrollbar-thumb { background: rgba(201,160,85,.2); border-radius: 4px; }
+  .cart-section { padding: 14px 20px; border-bottom: 1px solid rgba(201,160,85,.08); }
+  .cart-section-label {
+    font-family: 'Cinzel', serif; font-size: .56rem; letter-spacing: .28em;
+    color: var(--gold-primary); text-transform: uppercase; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cart-section-label::after { content:''; flex:1; height:1px; background: linear-gradient(90deg,rgba(201,160,85,.25),transparent); }
+
+  /* Selects */
+  .cart-select-wrap { position: relative; }
+  .cart-select {
+    width: 100%; appearance: none; background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,160,85,.2); color: var(--cream);
+    padding: 11px 14px 11px 38px; border-radius: 8px; font-size: .88rem;
+    outline: none; cursor: pointer; transition: border-color .3s;
+    font-family: 'Cormorant Garamond', serif;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A055' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: left 12px center;
+  }
+  .cart-select:focus { border-color: var(--gold-primary); box-shadow: 0 0 0 3px rgba(201,160,85,.08); }
+  .cart-select option { background: #1a130a; color: var(--cream); }
+
+  /* Inputs */
+  .cart-input {
+    width: 100%; background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,160,85,.2); color: var(--cream);
+    padding: 11px 14px; border-radius: 8px; font-size: .88rem;
+    outline: none; transition: border-color .3s; font-family: 'Cormorant Garamond', serif;
+  }
+  .cart-input:focus { border-color: var(--gold-primary); box-shadow: 0 0 0 3px rgba(201,160,85,.08); }
+  .cart-input::placeholder { color: var(--text-muted); }
+  .field-label { font-size: .68rem; color: var(--text-muted); margin-bottom: 6px; letter-spacing: .08em; display: block; }
+
+  /* Phone */
+  .phone-wrap { display: flex; border: 1px solid rgba(201,160,85,.2); border-radius: 8px; overflow: hidden; transition: border-color .3s, box-shadow .3s; }
+  .phone-wrap:focus-within { border-color: var(--gold-primary); box-shadow: 0 0 0 3px rgba(201,160,85,.08); }
+  .phone-prefix {
+    padding: 11px 13px; background: rgba(201,160,85,.08);
+    border-left: 1px solid rgba(201,160,85,.2); color: var(--gold-primary);
+    font-family: 'Cinzel', serif; font-size: .72rem; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px; letter-spacing: .04em;
+  }
+  .phone-input {
+    flex: 1; background: transparent; border: none; color: var(--cream);
+    padding: 11px 14px; font-size: .9rem; outline: none;
+    font-family: 'Cormorant Garamond', serif; direction: ltr;
+  }
+  .phone-input::placeholder { color: var(--text-muted); }
+
+  /* WhatsApp Toggle */
+  .wa-toggle-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 10px; padding: 11px 14px;
+    background: rgba(255,255,255,.03); border-radius: 10px;
+    border: 1px solid rgba(201,160,85,.1); transition: border-color .3s;
+  }
+  .wa-toggle-row:has(input:checked) { border-color: rgba(37,211,102,.3); background: rgba(37,211,102,.04); }
+  .wa-toggle-label { display: flex; align-items: center; gap: 10px; font-size: .84rem; color: var(--cream-dark); font-family: 'Cormorant Garamond', serif; }
+  .wa-switch { position: relative; display: inline-block; width: 46px; height: 26px; cursor: pointer; flex-shrink: 0; }
+  .wa-switch input { opacity: 0; width: 0; height: 0; }
+  .wa-track {
+    position: absolute; inset: 0; border-radius: 13px;
+    background: rgba(255,255,255,.12); transition: background .3s;
+    border: 1px solid rgba(255,255,255,.1);
+  }
+  .wa-switch input:checked + .wa-track { background: #25D366; border-color: #25D366; }
+  .wa-thumb {
+    position: absolute; top: 3px; left: 3px; width: 18px; height: 18px;
+    border-radius: 50%; background: #fff;
+    transition: transform .3s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 2px 6px rgba(0,0,0,.35);
+    pointer-events: none;
+  }
+  .wa-switch input:checked ~ .wa-thumb { transform: translateX(20px); }
+
+  /* Notes */
+  .cart-notes {
+    width: 100%; background: rgba(255,255,255,.04);
+    border: 1px solid rgba(201,160,85,.2); color: var(--cream);
+    padding: 10px 14px; border-radius: 8px; font-size: .86rem;
+    outline: none; resize: none; height: 62px; line-height: 1.5;
+    transition: border-color .3s; font-family: 'Cormorant Garamond', serif;
+  }
+  .cart-notes:focus { border-color: var(--gold-primary); box-shadow: 0 0 0 3px rgba(201,160,85,.08); }
+  .cart-notes::placeholder { color: var(--text-muted); font-style: italic; }
+
+  /* Shipping badge */
+  .shipping-pill {
+    display: inline-flex; align-items: center; gap: 7px; margin-top: 10px;
+    padding: 6px 14px; border-radius: 20px; font-size: .72rem; letter-spacing: .06em;
+    border: 1px solid rgba(201,160,85,.3); background: rgba(201,160,85,.08);
+    color: var(--gold-light); font-family: 'Cinzel', serif;
+    transition: all .4s;
+  }
+  .shipping-pill.near { border-color: rgba(76,175,130,.4); background: rgba(76,175,130,.1); color: #5ddba3; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .total-final { border-top: 1px solid rgba(201,160,85,.2); margin-top: 8px; padding-top: 12px; font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-light); font-weight: 500; }
 </style>
 </head>
 <body>
@@ -713,30 +817,133 @@
     <h2 class="cart-title">🛒 سلة التسوق</h2>
     <button class="cart-close" onclick="closeCart()">✕</button>
   </div>
-  <div id="cartItems" class="cart-items"></div>
-  <div class="cart-empty" id="cartEmpty">
-    <div style="font-size:3rem;margin-bottom:16px;">🛍️</div>
-    <p>السلة فارغة</p>
-    <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px;">أضف منتجات من الأعلى</p>
-  </div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="coupon-section">
-      <label class="coupon-label">كود الخصم</label>
-      <div class="coupon-row">
-        <input type="text" id="couponInput" class="coupon-input" placeholder="أدخل كود الخصم" oninput="this.value=this.value.toLowerCase()">
-        <button class="coupon-apply" onclick="applyCoupon()">تطبيق</button>
+
+  <div class="cart-body">
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-empty" id="cartEmpty">
+      <div style="font-size:3rem;margin-bottom:16px">🛍️</div>
+      <p>السلة فارغة</p>
+      <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px">أضف منتجات من الأعلى</p>
+    </div>
+
+    <div class="cart-footer" id="cartFooter" style="display:none">
+
+      <!-- كود الخصم -->
+      <div class="cart-section">
+        <div class="cart-section-label">🏷 كود الخصم</div>
+        <div class="coupon-row">
+          <input type="text" id="couponInput" class="cart-input" style="direction:ltr" placeholder="أدخل كود الخصم" oninput="this.value=this.value.toLowerCase()">
+          <button class="coupon-apply" onclick="applyCoupon()">تطبيق</button>
+        </div>
+        <div id="couponMsg" class="coupon-msg"></div>
       </div>
-      <div id="couponMsg" class="coupon-msg"></div>
+
+      <!-- بيانات التوصيل -->
+      <div class="cart-section">
+        <div class="cart-section-label">📍 بيانات التوصيل</div>
+        <div class="grid-2" style="margin-bottom:10px">
+          <div>
+            <span class="field-label">المحافظة</span>
+            <div class="cart-select-wrap">
+              <select id="govSelect" class="cart-select" onchange="onGovChange()">
+                <option value="الدقهلية" selected>الدقهلية</option>
+                <option value="القاهرة">القاهرة</option>
+                <option value="الجيزة">الجيزة</option>
+                <option value="الإسكندرية">الإسكندرية</option>
+                <option value="البحيرة">البحيرة</option>
+                <option value="الغربية">الغربية</option>
+                <option value="الشرقية">الشرقية</option>
+                <option value="المنوفية">المنوفية</option>
+                <option value="القليوبية">القليوبية</option>
+                <option value="كفر الشيخ">كفر الشيخ</option>
+                <option value="دمياط">دمياط</option>
+                <option value="بورسعيد">بورسعيد</option>
+                <option value="الإسماعيلية">الإسماعيلية</option>
+                <option value="السويس">السويس</option>
+                <option value="شمال سيناء">شمال سيناء</option>
+                <option value="جنوب سيناء">جنوب سيناء</option>
+                <option value="الفيوم">الفيوم</option>
+                <option value="بني سويف">بني سويف</option>
+                <option value="المنيا">المنيا</option>
+                <option value="أسيوط">أسيوط</option>
+                <option value="سوهاج">سوهاج</option>
+                <option value="قنا">قنا</option>
+                <option value="الأقصر">الأقصر</option>
+                <option value="أسوان">أسوان</option>
+                <option value="البحر الأحمر">البحر الأحمر</option>
+                <option value="الوادي الجديد">الوادي الجديد</option>
+                <option value="مطروح">مطروح</option>
+              </select>
+            </div>
+          </div>
+          <div id="areaWrap">
+            <span class="field-label">المنطقة</span>
+            <div class="cart-select-wrap" id="areaSelectWrap">
+              <select id="areaSelect" class="cart-select" onchange="onAreaChange()">
+                <option value="الجماليه" selected>الجماليه</option>
+                <option value="المنصوره">المنصوره</option>
+                <option value="طلخا">طلخا</option>
+                <option value="ميت غمر">ميت غمر</option>
+                <option value="دكرنس">دكرنس</option>
+                <option value="بلقاس">بلقاس</option>
+                <option value="أجا">أجا</option>
+                <option value="شربين">شربين</option>
+                <option value="السنبلاوين">السنبلاوين</option>
+                <option value="منية النصر">منية النصر</option>
+                <option value="نبروه">نبروه</option>
+                <option value="تمي الأمديد">تمي الأمديد</option>
+                <option value="ديرب نجم">ديرب نجم</option>
+                <option value="ميت سلسيل">ميت سلسيل</option>
+              </select>
+            </div>
+            <input type="text" id="areaText" class="cart-input" placeholder="اكتب المنطقة" style="display:none" oninput="renderCart()">
+          </div>
+        </div>
+        <div id="shippingPill" class="shipping-pill near">🚚 الشحن: 14 جنيه — الجماليه</div>
+      </div>
+
+      <!-- بيانات العميل -->
+      <div class="cart-section">
+        <div class="cart-section-label">👤 بيانات العميل</div>
+        <span class="field-label">رقم الهاتف</span>
+        <div class="phone-wrap" style="margin-bottom:0">
+          <div class="phone-prefix">🇪🇬 +20</div>
+          <input type="tel" id="phoneInput" class="phone-input" placeholder="01xxxxxxxxx" maxlength="11">
+        </div>
+
+        <label class="wa-toggle-row" style="cursor:pointer">
+          <div class="wa-toggle-label">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            الرقم على واتساب؟
+          </div>
+          <label class="wa-switch">
+            <input type="checkbox" id="waToggle" checked>
+            <div class="wa-track"></div>
+            <div class="wa-thumb"></div>
+          </label>
+        </label>
+
+        <div style="margin-top:12px">
+          <span class="field-label">ملاحظات إضافية <span style="opacity:.45">(اختياري)</span></span>
+          <textarea id="cartNotes" class="cart-notes" placeholder="مثال: اللون المفضل، رسالة هدية، تفاصيل العنوان..."></textarea>
+        </div>
+      </div>
+
+      <!-- الإجمالي -->
+      <div class="cart-section" style="border-bottom:none;padding-bottom:20px">
+        <div class="cart-totals">
+          <div class="total-row"><span>المجموع</span><span id="subtotal">0 جنيه</span></div>
+          <div class="total-row" id="discountRow" style="display:none"><span id="discountLabel">خصم</span><span id="discountAmt" style="color:#4ade80"></span></div>
+          <div class="total-row"><span>الشحن</span><span id="shippingAmt" style="color:var(--gold-primary)">14 جنيه</span></div>
+          <div class="total-row total-final"><span>الإجمالي</span><span id="grandTotal">0 جنيه</span></div>
+        </div>
+        <button class="btn-whatsapp-order" onclick="orderViaWhatsApp()">
+          <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          اطلب عبر واتساب
+        </button>
+      </div>
+
     </div>
-    <div class="cart-totals">
-      <div class="total-row"><span>المجموع</span><span id="subtotal">0 جنيه</span></div>
-      <div class="total-row discount-row" id="discountRow" style="display:none"><span id="discountLabel">خصم</span><span id="discountAmt" style="color:#4ade80"></span></div>
-      <div class="total-row total-final"><span>الإجمالي</span><span id="grandTotal">0 جنيه</span></div>
-    </div>
-    <button class="btn-whatsapp-order" onclick="orderViaWhatsApp()">
-      <svg viewBox="0 0 24 24" fill="white" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      اطلب عبر واتساب
-    </button>
   </div>
 </div>
 
@@ -1211,6 +1418,55 @@ function applyCoupon() {
   renderCart();
 }
 
+function getShipping() {
+  const gov = document.getElementById('govSelect') ? document.getElementById('govSelect').value : 'الدقهلية';
+  if (gov !== 'الدقهلية') return 79;
+  const areaSel = document.getElementById('areaSelect');
+  const areaTxt = document.getElementById('areaText');
+  const area = (areaSel && areaSel.style.display !== 'none') ? areaSel.value : (areaTxt ? areaTxt.value.trim() : '');
+  if (area === 'الجماليه') return 14;
+  return 22;
+}
+
+function getAreaLabel() {
+  const areaSel = document.getElementById('areaSelect');
+  const areaTxt = document.getElementById('areaText');
+  if (areaSel && areaSel.style.display !== 'none') return areaSel.value;
+  return areaTxt ? areaTxt.value.trim() : '';
+}
+
+function updateShippingUI() {
+  const shipping = getShipping();
+  const area = getAreaLabel();
+  const gov = document.getElementById('govSelect') ? document.getElementById('govSelect').value : '';
+  const pill = document.getElementById('shippingPill');
+  const amtEl = document.getElementById('shippingAmt');
+  if (amtEl) amtEl.textContent = shipping + ' جنيه';
+  if (pill) {
+    const near = shipping === 14;
+    pill.className = 'shipping-pill' + (near ? ' near' : '');
+    const loc = gov !== 'الدقهلية' ? gov : area;
+    pill.textContent = '🚚 الشحن: ' + shipping + ' جنيه — ' + (loc || gov);
+  }
+}
+
+function onGovChange() {
+  const gov = document.getElementById('govSelect').value;
+  const areaSelectWrap = document.getElementById('areaSelectWrap');
+  const areaText = document.getElementById('areaText');
+  if (gov === 'الدقهلية') {
+    areaSelectWrap.style.display = 'block';
+    areaText.style.display = 'none';
+  } else {
+    areaSelectWrap.style.display = 'none';
+    areaText.style.display = 'block';
+    areaText.value = '';
+  }
+  renderCart();
+}
+
+function onAreaChange() { renderCart(); }
+
 function renderCart() {
   const itemsEl = document.getElementById('cartItems');
   const emptyEl = document.getElementById('cartEmpty');
@@ -1246,7 +1502,8 @@ function renderCart() {
 
   const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const discountAmt = Math.round(subtotal * appliedDiscount / 100);
-  const grand = subtotal - discountAmt;
+  const shipping = getShipping();
+  const grand = subtotal - discountAmt + shipping;
 
   document.getElementById('subtotal').textContent = subtotal + ' جنيه';
   document.getElementById('grandTotal').textContent = grand + ' جنيه';
@@ -1259,16 +1516,35 @@ function renderCart() {
   } else {
     discRow.style.display = 'none';
   }
+
+  updateShippingUI();
 }
 
 function orderViaWhatsApp() {
   const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
   const discountAmt = Math.round(subtotal * appliedDiscount / 100);
-  const grand = subtotal - discountAmt;
-  let msg = 'مرحباً، أريد الطلب:\n';
+  const shipping = getShipping();
+  const grand = subtotal - discountAmt + shipping;
+  const gov = document.getElementById('govSelect') ? document.getElementById('govSelect').value : '';
+  const area = getAreaLabel();
+  const phone = document.getElementById('phoneInput') ? document.getElementById('phoneInput').value.trim() : '';
+  const isWa = document.getElementById('waToggle') ? document.getElementById('waToggle').checked : true;
+  const notes = document.getElementById('cartNotes') ? document.getElementById('cartNotes').value.trim() : '';
+
+  let msg = '🛍 *طلب جديد — HERITAM*\n';
+  msg += '━━━━━━━━━━━━━━━━\n';
   cart.forEach(i => { msg += `• ${i.name} × ${i.qty} = ${i.price * i.qty} جنيه\n`; });
-  if (appliedDiscount > 0) msg += `\nكود الخصم: خصم ${appliedDiscount}%\nالخصم: -${discountAmt} جنيه`;
-  msg += `\n\nالإجمالي: ${grand} جنيه`;
+  msg += '━━━━━━━━━━━━━━━━\n';
+  msg += `📦 المجموع: ${subtotal} جنيه\n`;
+  if (appliedDiscount > 0) msg += `🏷 خصم ${appliedDiscount}%: - ${discountAmt} جنيه\n`;
+  msg += `🚚 الشحن (${area || gov}): ${shipping} جنيه\n`;
+  msg += `💰 *الإجمالي: ${grand} جنيه*\n`;
+  msg += '━━━━━━━━━━━━━━━━\n';
+  msg += `📍 المحافظة: ${gov}\n`;
+  if (area) msg += `📌 المنطقة: ${area}\n`;
+  if (phone) msg += `📱 الهاتف: ${phone}${isWa ? ' (واتساب ✓)' : ' (بدون واتساب)'}\n`;
+  if (notes) msg += `📝 ملاحظات: ${notes}\n`;
+
   window.open('https://wa.me/201551814955?text=' + encodeURIComponent(msg), '_blank');
 }
 
