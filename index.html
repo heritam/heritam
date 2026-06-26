@@ -982,22 +982,15 @@
 
 <script>
 // ── CART
-let COUPONS = {};
+let COUPONS = {
+  "popeyegym": 70,
+  "ebrahimelbltagy": 70,
+  "ahmedibrahim": 70,
+  "ahmedshawky": 70,
+  "nadamansy": 70
+};
 let cart = [];
 let appliedDiscount = 0;
-
-fetch('/codes.html')
-  .then(r => r.text())
-  .then(html => {
-    const tmp = document.createElement('div');
-    tmp.innerHTML = html;
-    tmp.querySelectorAll('code[data-discount]').forEach(el => {
-      const code = el.textContent.trim().toLowerCase();
-      const pct  = parseInt(el.getAttribute('data-discount'), 10);
-      if (code && !isNaN(pct)) COUPONS[code] = pct;
-    });
-  })
-  .catch(() => {});
 
 function openCart() {
   document.getElementById('cartDrawer').classList.add('open');
