@@ -522,6 +522,75 @@
   .step-title { font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .15em; color: var(--cream); text-transform: uppercase; margin-bottom: 12px; }
   .step-desc { font-size: .85rem; color: var(--text-muted); line-height: 1.7; font-style: italic; }
 
+  /* ── TRADING WIDGET ── */
+  #tradingWidget {
+    position: fixed; left: 18px; bottom: 110px; width: 158px;
+    background: linear-gradient(160deg, #0c0c0c 0%, #111 60%, #0e0b06 100%);
+    border: 1px solid rgba(201,160,85,.28); border-radius: 14px;
+    padding: 13px 12px 10px; z-index: 5001; user-select: none;
+    box-shadow: 0 12px 50px rgba(0,0,0,.7), 0 0 0 1px rgba(201,160,85,.06), inset 0 1px 0 rgba(201,160,85,.1);
+    font-family: 'Cinzel', serif;
+    animation: twSlideIn .6s cubic-bezier(.34,1.2,.64,1) both;
+  }
+  @keyframes twSlideIn { from { opacity:0; transform: translateX(-30px) scale(.9); } to { opacity:1; transform: none; } }
+  .tw-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 10px; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(201,160,85,.1);
+  }
+  .tw-brand { font-size: .38rem; letter-spacing: .3em; color: rgba(201,160,85,.5); text-transform: uppercase; }
+  .tw-live { display: flex; align-items: center; gap: 4px; }
+  .tw-dot { width: 5px; height: 5px; border-radius: 50%; background: #2ecc71; animation: twPulse 1.6s ease-in-out infinite; }
+  @keyframes twPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.7)} }
+  .tw-live-txt { font-size: .33rem; letter-spacing: .15em; color: #2ecc71; }
+
+  /* سهم الخصومات — أبرز عنصر */
+  .tw-discount-block {
+    background: linear-gradient(135deg, rgba(46,204,113,.08), rgba(46,204,113,.03));
+    border: 1px solid rgba(46,204,113,.2); border-radius: 9px;
+    padding: 9px 10px; margin-bottom: 9px; position: relative; overflow: hidden;
+  }
+  .tw-discount-block::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(46,204,113,.06), transparent 70%);
+  }
+  .tw-discount-tag { font-size: .36rem; letter-spacing: .22em; color: rgba(46,204,113,.7); text-transform: uppercase; margin-bottom: 4px; }
+  .tw-discount-row { display: flex; align-items: flex-end; justify-content: space-between; }
+  .tw-discount-arrow {
+    font-size: 1.5rem; line-height:1; color: #2ecc71; font-weight: 900;
+    animation: twArrowFloat .9s ease-in-out infinite alternate;
+    text-shadow: 0 0 18px rgba(46,204,113,.6);
+  }
+  @keyframes twArrowFloat { from{transform:translateY(0)} to{transform:translateY(-4px)} }
+  .tw-discount-pct { font-size: 1.25rem; font-weight: 900; color: #2ecc71; letter-spacing: -.01em; line-height:1; }
+  .tw-discount-sub { font-size: .36rem; color: rgba(46,204,113,.6); letter-spacing: .08em; margin-top: 3px; }
+  .tw-timer-row {
+    display: flex; align-items: center; gap: 5px; margin-top: 7px;
+    background: rgba(255,200,0,.06); border: 1px solid rgba(255,200,0,.2);
+    border-radius: 6px; padding: 4px 7px;
+  }
+  .tw-timer-icon { font-size: .7rem; animation: twTick 1s steps(1) infinite; }
+  @keyframes twTick { 0%{opacity:1} 50%{opacity:.35} }
+  .tw-timer-label { font-size: .33rem; letter-spacing: .1em; color: rgba(255,200,0,.7); flex: 1; }
+  .tw-timer-val { font-size: .52rem; font-weight: 900; color: #ffd700; letter-spacing: .04em; font-variant-numeric: tabular-nums; }
+
+  /* sparkline */
+  .tw-spark { margin: 6px 0; height: 22px; }
+  .tw-spark svg { width: 100%; height: 100%; display: block; }
+
+  /* stats rows */
+  .tw-stat {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  }
+  .tw-stat:last-child { border-bottom: none; padding-bottom: 0; }
+  .tw-stat-lbl { font-size: .4rem; letter-spacing: .1em; color: rgba(201,160,85,.45); text-transform: uppercase; }
+  .tw-stat-val { display: flex; align-items: center; gap: 3px; font-size: .6rem; font-weight: 700; }
+  .tw-stat-val.green { color: #2ecc71; }
+  .tw-stat-val.gold  { color: var(--gold-light); }
+  .tw-stat-val.red   { color: #e74c3c; }
+  .tw-mini-arrow { font-size: .55rem; line-height:1; }
+
   /* ── WHATSAPP FLOATING BUTTON ── */
   .wa-float {
     position: fixed; bottom: 32px; right: 32px; z-index: 5000;
@@ -1272,6 +1341,61 @@
 <div id="copy-toast">✓ تم نسخ الرابط</div>
 <div id="cursor-ring"></div>
 
+<!-- TRADING WIDGET -->
+<div id="tradingWidget">
+  <div class="tw-header">
+    <span class="tw-brand">Heritam</span>
+    <div class="tw-live"><div class="tw-dot"></div><span class="tw-live-txt">LIVE</span></div>
+  </div>
+
+  <!-- الخصومات — أعلى وأبرز عنصر -->
+  <div class="tw-discount-block">
+    <div class="tw-discount-tag">▲ الخصومات</div>
+    <div class="tw-discount-row">
+      <div>
+        <div class="tw-discount-pct" id="twDiscPct">70%</div>
+        <div class="tw-discount-sub">خصم حصري</div>
+      </div>
+      <div class="tw-discount-arrow">↑</div>
+    </div>
+  </div>
+
+  <!-- Sparkline -->
+  <div class="tw-spark">
+    <svg viewBox="0 0 134 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="twG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2ecc71" stop-opacity=".35"/>
+          <stop offset="100%" stop-color="#2ecc71" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,18 C12,16 22,14 34,10 C44,7 54,5 66,4 C78,3 90,2 100,2 C112,2 122,1 134,0 L134,22 L0,22 Z" fill="url(#twG)"/>
+      <path d="M0,18 C12,16 22,14 34,10 C44,7 54,5 66,4 C78,3 90,2 100,2 C112,2 122,1 134,0" fill="none" stroke="#2ecc71" stroke-width="1.6"/>
+      <circle id="twDot" cx="134" cy="0" r="2.5" fill="#2ecc71" opacity=".9">
+        <animate attributeName="opacity" values="1;.3;1" dur="1.4s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <!-- Stats -->
+  <div class="tw-stat">
+    <span class="tw-stat-lbl">المنتجات</span>
+    <span class="tw-stat-val gold"><span class="tw-mini-arrow">↑</span>12</span>
+  </div>
+  <div class="tw-stat">
+    <span class="tw-stat-lbl">أقل سعر</span>
+    <span class="tw-stat-val gold">45 ج</span>
+  </div>
+  <div class="tw-stat">
+    <span class="tw-stat-lbl">التوفير</span>
+    <span class="tw-stat-val green" id="twSaving">—</span>
+  </div>
+  <div class="tw-stat">
+    <span class="tw-stat-lbl">الطلبات</span>
+    <span class="tw-stat-val green"><span class="tw-mini-arrow">↑</span><span id="twOrders">47</span></span>
+  </div>
+</div>
+
 <!-- WHATSAPP FLOATING BUTTON -->
 <a href="https://wa.me/201551814955" target="_blank" class="wa-float" title="Order via WhatsApp">
   <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -1873,13 +1997,17 @@
      لحذف كود: احذف السطر بالكامل
      ============================================================ -->
 <script type="text/x-discount-codes" id="discountCodes">
-<code data-discount="70">popeyegym</code>
-<code data-discount="70">ebrahimelbltagy</code>
-<code data-discount="70">ahmedibrahim</code>
-<code data-discount="70">ahmedshawky</code>
-<code data-discount="70">nadamansy</code>
-<code data-discount="70">loayhassan</code>
-<code data-discount="70">belalhamed</code>
+<code data-discount="50">popeyegym</code>
+<code data-discount="50">ebrahimelbltagy</code>
+<code data-discount="50">ahmedibrahim</code>
+<code data-discount="50">ahmedshawky</code>
+<code data-discount="50">nadamansy</code>
+<code data-discount="50">belalhamed</code>
+<code data-discount="50">omarsalem</code>
+<code data-discount="50">zehery</code>
+<code data-discount="50">khaledeata</code>
+<code data-discount="50">mahmoudelsaiad</code>
+<code data-discount="70">10123232000</code>
 </script>
 
 <script>
@@ -2307,6 +2435,41 @@ function copyProductLink(id, btn) {
     }, 2000);
   });
 }
+
+// ── TRADING WIDGET ANIMATION
+(function() {
+  let orders = 47 + Math.floor(Math.random() * 12);
+  let tick = 0;
+
+  function updateTradingWidget() {
+    tick++;
+    // تحديث عداد الطلبات عشوائياً
+    if (tick % 7 === 0 && Math.random() > 0.45) {
+      orders++;
+      const el = document.getElementById('twOrders');
+      if (el) {
+        el.textContent = orders;
+        el.style.transform = 'scale(1.3)';
+        setTimeout(() => { el.style.transform = 'scale(1)'; el.style.transition = 'transform .3s'; }, 300);
+      }
+    }
+    // تحديث خانة التوفير من السلة الحالية
+    const subtotal = typeof cart !== 'undefined' ? cart.reduce((s,i) => s + i.price * i.qty, 0) : 0;
+    const savEl = document.getElementById('twSaving');
+    if (savEl) {
+      savEl.textContent = subtotal > 0 ? '↑ ' + Math.round(subtotal * 0.5) + ' ج' : '—';
+    }
+    // تحديث نسبة الخصم من appliedDiscount
+    const discEl = document.getElementById('twDiscPct');
+    if (discEl) {
+      const pct = typeof appliedDiscount !== 'undefined' && appliedDiscount > 0 ? appliedDiscount : 70;
+      discEl.textContent = pct + '%';
+    }
+  }
+
+  setInterval(updateTradingWidget, 2800);
+  setTimeout(updateTradingWidget, 800);
+})();
 
 // ── LOADER
 window.addEventListener('load', () => {
